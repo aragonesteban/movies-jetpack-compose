@@ -1,0 +1,104 @@
+import com.example.moviesapp.buildsrc.Libs
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.30'
+}
+
+android {
+    compileSdk 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.example.moviesapp"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/movie/\""
+        variant.buildConfigField "String", "API_KEY_MOVIE", "\"dc5ceb4ee432272da39ec411f4078888\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.version
+        kotlinCompilerVersion '1.4.32'
+    }
+}
+
+dependencies {
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.Coroutines.android
+
+    implementation Libs.AndroidX.coreKtx
+    implementation Libs.AndroidX.appCompat
+    implementation Libs.AndroidX.navigation
+    implementation Libs.AndroidX.Activity.activityCompose
+    implementation Libs.AndroidX.ConstraintLayout.constraintLayoutCompose
+
+    implementation Libs.AndroidX.Lifecycle.viewModel
+    implementation Libs.AndroidX.Compose.viewModelCompose
+
+    implementation Libs.AndroidX.Compose.runtime
+    implementation Libs.AndroidX.Compose.foundation
+    implementation Libs.AndroidX.Compose.layout
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.uiUtil
+    implementation Libs.AndroidX.Compose.material
+    implementation Libs.AndroidX.Compose.animation
+    implementation Libs.AndroidX.Compose.iconsExtended
+    implementation Libs.AndroidX.Compose.tooling
+
+    implementation Libs.squareUp.retrofit
+    implementation Libs.squareUp.converterGson
+    implementation Libs.squareUp.loggingInterceptor
+
+    implementation Libs.Koin.android
+    implementation Libs.Koin.scope
+    implementation Libs.Koin.viewModel
+    implementation Libs.Koin.extension
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
+
+    implementation Libs.Accompanist.coil
+    implementation Libs.Accompanist.pager
+    implementation Libs.Accompanist.insets
+
+    androidTestImplementation Libs.AndroidX.Activity.activityCompose
+
+    androidTestImplementation Libs.JUnit.junit
+    androidTestImplementation Libs.AndroidX.Test.core
+    androidTestImplementation Libs.AndroidX.Test.espressoCore
+    androidTestImplementation Libs.AndroidX.Test.rules
+    androidTestImplementation Libs.AndroidX.Test.Ext.junit
+    androidTestImplementation Libs.AndroidX.Compose.uiTest
+}
